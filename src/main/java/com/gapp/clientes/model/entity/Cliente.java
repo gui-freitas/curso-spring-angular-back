@@ -22,6 +22,7 @@ public class Cliente {
 	@Column(nullable = false, length = 11)
 	private String cpf;
 	
+	@Column(updatable = false)
 	private Instant dataCadastro;
 	
 	public Cliente() { }
