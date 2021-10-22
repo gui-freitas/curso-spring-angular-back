@@ -21,7 +21,7 @@ public class ClienteService {
 	public Cliente buscaPorId(Integer id) {
 		return clienteRepository
 				.findById(id)
-				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
 	}
 
 	public void deletar(Integer id) {
@@ -31,7 +31,7 @@ public class ClienteService {
 				clienteRepository.delete(cliente);
 				return Void.TYPE;
 			})
-			.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+			.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
 	}
 
 	public void atualizar(Integer id, Cliente clienteAtualizado) {
@@ -42,6 +42,6 @@ public class ClienteService {
 			cliente.setCpf(clienteAtualizado.getCpf());
 			return clienteRepository.save(cliente);
 		})
-		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
 	}
 }

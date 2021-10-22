@@ -15,7 +15,7 @@ public class ClientesApplication {
 	@Bean
 	public CommandLineRunner run(@Autowired ClienteRepository clienteRepository) {
 		return args -> {
-			Cliente cliente = new Cliente(null, "Teste", "01234567890", null);
+			Cliente cliente = new Cliente(null, "Teste de Usuario", "01234567890", null);
 			clienteRepository.save(cliente);
 		};
 	}
