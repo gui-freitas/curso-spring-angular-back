@@ -1,5 +1,7 @@
 package com.gapp.clientes.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -43,5 +45,9 @@ public class ClienteService {
 			return clienteRepository.save(cliente);
 		})
 		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
+	}
+
+	public List<Cliente> buscarTodos() {
+		return clienteRepository.findAll();
 	}
 }
