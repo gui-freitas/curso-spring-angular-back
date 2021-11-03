@@ -1,6 +1,7 @@
 package com.gapp.clientes.model.entity;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Servico {
+public class ServicoPrestado {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +26,18 @@ public class Servico {
 	private Cliente cliente;
 	
 	private BigDecimal valor;
-
-	public Servico() { }
 	
-	public Servico(Integer id, String descricao, Cliente cliente, BigDecimal valor) {
+	private Instant dataExecucao;
+
+	public ServicoPrestado() { }
+	
+	public ServicoPrestado(Integer id, String descricao, Cliente cliente, BigDecimal valor, Instant dataExecucao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.cliente = cliente;
 		this.valor = valor;
+		this.dataExecucao = dataExecucao;
 	}
 
 	public Integer getId() {
@@ -66,5 +70,13 @@ public class Servico {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public Instant getDataExecucao() {
+		return dataExecucao;
+	}
+
+	public void setDataExecucao(Instant dataExecucao) {
+		this.dataExecucao = dataExecucao;
 	}
 }
