@@ -1,5 +1,7 @@
 package com.gapp.clientes.service;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,5 +50,9 @@ public class ServicoPrestadoService {
 		servicoPrestado.setValor(bigDecimalConverter.converter(dto.getValor()));
 		
 		return servicoPrestadoRepository.save(servicoPrestado);
+	}
+
+	public List<ServicoPrestado> pesquisar(String nome, Integer mes) {
+		return servicoPrestadoRepository.findByNomeClienteAndMes("%" + nome + "%", mes);
 	}
 }
