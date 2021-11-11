@@ -1,5 +1,6 @@
 package com.gapp.clientes.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,16 +11,19 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.gapp.clientes.service.UsuarioService;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
-			.inMemoryAuthentication()
-				.withUser("Guilherme")
-				.password("123")
-				.roles("USER");
+			.userDetailsService(usuarioService)
+			.passwordEncoder(passwordEncoder());
 	}
 	
 	@Bean
