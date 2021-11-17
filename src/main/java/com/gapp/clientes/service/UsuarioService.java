@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gapp.clientes.model.entity.Usuario;
 import com.gapp.clientes.model.entity.repository.UsuarioRepository;
+import com.gapp.clientes.service.exception.UsuarioCadastradoException;
 
 @Service
 public class UsuarioService implements UserDetailsService{
@@ -17,6 +18,10 @@ public class UsuarioService implements UserDetailsService{
 	private UsuarioRepository usuarioRepository;
 
 	public Usuario salvar(Usuario usuario) {
+		boolean exists = usuarioRepository.existsByUsername(usuario.getUsername());
+		if (exists) {
+			throw new UsuarioCadastradoException(usuario.getUsername());
+		}
 		return usuarioRepository.save(usuario);
 	}
 

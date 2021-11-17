@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.gapp.clientes.model.entity.Usuario;
 import com.gapp.clientes.service.UsuarioService;
+import com.gapp.clientes.service.exception.UsuarioCadastradoException;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -23,6 +25,11 @@ public class UsuarioController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void salvar(@RequestBody @Valid Usuario usuario) {
-		usuarioService.salvar(usuario);
+		try {
+			usuarioService.salvar(usuario);
+		} 
+		catch (UsuarioCadastradoException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+		}
 	}
 }
