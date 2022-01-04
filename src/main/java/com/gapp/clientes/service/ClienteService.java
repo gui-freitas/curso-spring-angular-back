@@ -1,8 +1,8 @@
 package com.gapp.clientes.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -47,7 +47,8 @@ public class ClienteService {
 		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
 	}
 
-	public List<Cliente> buscarTodos() {
-		return clienteRepository.findAll();
+	public Page<Cliente> buscarTodos(Integer pagina, Integer tamanhoPagina) {
+		PageRequest pageRequest = PageRequest.of(pagina, tamanhoPagina);
+		return clienteRepository.findAll(pageRequest);
 	}
 }
